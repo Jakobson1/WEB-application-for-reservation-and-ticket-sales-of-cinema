@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- main-agileits -->
+<div class="agileits">
+    <h1>LOGOVANJE NA SISTEM</h1>
+    <div class="w3-agileits-info">
+        <form class='form animate-form' action="Verify" method="post">
+            <p class="w3agileits">Ulogujte se</p>
+            <div class='form-group has-feedback w3ls'>
+                <label class='control-label sr-only' for='username'>Korisnicko ime</label>
+                <input class='form-control' id='username' name='Username' placeholder='Username' type='text'>
+                <span class='glyphicon glyphicon-ok form-control-feedback'></span>
+            </div>
+
+            <div class='form-group has-feedback agile'>
+                <label class='control-label sr-only' for='password'>Sifra</label>
+                <input class='form-control w3l' id='password' name='Password' placeholder='Password' type='password'><span class='glyphicon glyphicon-ok form-control-feedback'></span>
+            </div>
+            <div class='submit w3-agile'>
+                <input class='btn btn-lg' type='submit' value='Login'>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- //agileits -->
+<!-- copyright -->
+<!-- //copyright -->
+<!-- js -->
+<script src="js/jquery-2.2.3.min.js"></script>
+<script src='js/jquery.validate.min.js'></script>
+<script src='js/formAnimation.js'></script>
+<script src='js/shake.js'></script>
+<!-- //js -->
