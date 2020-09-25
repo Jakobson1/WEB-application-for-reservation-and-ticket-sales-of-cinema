@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BioskopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bioskop">
+          <Key>
+            <PropertyRef Name="BioskopID" />
+          </Key>
+          <Property Name="BioskopID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lokacija" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clanstvo">
+          <Key>
+            <PropertyRef Name="IDClan" />
+          </Key>
+          <Property Name="IDClan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BrLicne" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Paket" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClanInfo" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="IDFilm" />
+          </Key>
+          <Property Name="IDFilm" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vreme" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Datum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Opis" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cena" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="IDRacuna" />
+          </Key>
+          <Property Name="IDRacuna" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Datum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vreme" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Obradjen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Storniran" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UkupanIznos" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rezervacija">
+          <Key>
+            <PropertyRef Name="IDRez" />
+          </Key>
+          <Property Name="IDRez" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BrKarata" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MestaSed" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImeFilma" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CenaKarte" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StavkaRacuna">
+          <Key>
+            <PropertyRef Name="RedniBroj" />
+          </Key>
+          <Property Name="IDRacuna" Type="int" Nullable="false" />
+          <Property Name="RedniBroj" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImeFilma" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BrKarata" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MestaSed" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vreme" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Datum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CenaKarte" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_StavkaRacuna_Racun">
+          <End Role="Racun" Type="Self.Racun" Multiplicity="1" />
+          <End Role="StavkaRacuna" Type="Self.StavkaRacuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="IDRacuna" />
+            </Principal>
+            <Dependent Role="StavkaRacuna">
+              <PropertyRef Name="IDRacuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BioskopModelStoreContainer">
+          <EntitySet Name="Bioskop" EntityType="Self.Bioskop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clanstvo" EntityType="Self.Clanstvo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Film" EntityType="Self.Film" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Racun" EntityType="Self.Racun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rezervacija" EntityType="Self.Rezervacija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StavkaRacuna" EntityType="Self.StavkaRacuna" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_StavkaRacuna_Racun" Association="Self.FK_StavkaRacuna_Racun">
+            <End Role="Racun" EntitySet="Racun" />
+            <End Role="StavkaRacuna" EntitySet="StavkaRacuna" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BioskopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bioskop">
+          <Key>
+            <PropertyRef Name="BioskopID" />
+          </Key>
+          <Property Name="BioskopID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lokacija" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clanstvo">
+          <Key>
+            <PropertyRef Name="IDClan" />
+          </Key>
+          <Property Name="IDClan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrLicne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Paket" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClanInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="IDFilm" />
+          </Key>
+          <Property Name="IDFilm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Vreme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Datum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Opis" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cena" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="IDRacuna" />
+          </Key>
+          <Property Name="IDRacuna" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Datum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Vreme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Obradjen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Storniran" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UkupanIznos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="StavkaRacunas" Relationship="Self.FK_StavkaRacuna_Racun" FromRole="Racun" ToRole="StavkaRacuna" />
+        </EntityType>
+        <EntityType Name="Rezervacija">
+          <Key>
+            <PropertyRef Name="IDRez" />
+          </Key>
+          <Property Name="IDRez" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrKarata" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MestaSed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImeFilma" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CenaKarte" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StavkaRacuna">
+          <Key>
+            <PropertyRef Name="RedniBroj" />
+          </Key>
+          <Property Name="IDRacuna" Type="Int32" Nullable="false" />
+          <Property Name="RedniBroj" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImeFilma" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BrKarata" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MestaSed" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Vreme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Datum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CenaKarte" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Racun" Relationship="Self.FK_StavkaRacuna_Racun" FromRole="StavkaRacuna" ToRole="Racun" />
+        </EntityType>
+        <Association Name="FK_StavkaRacuna_Racun">
+          <End Role="Racun" Type="Self.Racun" Multiplicity="1" />
+          <End Role="StavkaRacuna" Type="Self.StavkaRacuna" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="IDRacuna" />
+            </Principal>
+            <Dependent Role="StavkaRacuna">
+              <PropertyRef Name="IDRacuna" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BioskopEnti2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bioskops" EntityType="Self.Bioskop" />
+          <EntitySet Name="Clanstvoes" EntityType="Self.Clanstvo" />
+          <EntitySet Name="Films" EntityType="Self.Film" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Racuns" EntityType="Self.Racun" />
+          <EntitySet Name="Rezervacijas" EntityType="Self.Rezervacija" />
+          <EntitySet Name="StavkaRacunas" EntityType="Self.StavkaRacuna" />
+          <AssociationSet Name="FK_StavkaRacuna_Racun" Association="Self.FK_StavkaRacuna_Racun">
+            <End Role="Racun" EntitySet="Racuns" />
+            <End Role="StavkaRacuna" EntitySet="StavkaRacunas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BioskopModelStoreContainer" CdmEntityContainer="BioskopEnti2">
+          <EntitySetMapping Name="Bioskops">
+            <EntityTypeMapping TypeName="BioskopModel.Bioskop">
+              <MappingFragment StoreEntitySet="Bioskop">
+                <ScalarProperty Name="BioskopID" ColumnName="BioskopID" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Lokacija" ColumnName="Lokacija" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clanstvoes">
+            <EntityTypeMapping TypeName="BioskopModel.Clanstvo">
+              <MappingFragment StoreEntitySet="Clanstvo">
+                <ScalarProperty Name="IDClan" ColumnName="IDClan" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="BrLicne" ColumnName="BrLicne" />
+                <ScalarProperty Name="Paket" ColumnName="Paket" />
+                <ScalarProperty Name="ClanInfo" ColumnName="ClanInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Films">
+            <EntityTypeMapping TypeName="BioskopModel.Film">
+              <MappingFragment StoreEntitySet="Film">
+                <ScalarProperty Name="IDFilm" ColumnName="IDFilm" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Vreme" ColumnName="Vreme" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Cena" ColumnName="Cena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="BioskopModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racuns">
+            <EntityTypeMapping TypeName="BioskopModel.Racun">
+              <MappingFragment StoreEntitySet="Racun">
+                <ScalarProperty Name="IDRacuna" ColumnName="IDRacuna" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Vreme" ColumnName="Vreme" />
+                <ScalarProperty Name="Obradjen" ColumnName="Obradjen" />
+                <ScalarProperty Name="Storniran" ColumnName="Storniran" />
+                <ScalarProperty Name="UkupanIznos" ColumnName="UkupanIznos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rezervacijas">
+            <EntityTypeMapping TypeName="BioskopModel.Rezervacija">
+              <MappingFragment StoreEntitySet="Rezervacija">
+                <ScalarProperty Name="IDRez" ColumnName="IDRez" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="BrKarata" ColumnName="BrKarata" />
+                <ScalarProperty Name="MestaSed" ColumnName="MestaSed" />
+                <ScalarProperty Name="ImeFilma" ColumnName="ImeFilma" />
+                <ScalarProperty Name="CenaKarte" ColumnName="CenaKarte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StavkaRacunas">
+            <EntityTypeMapping TypeName="BioskopModel.StavkaRacuna">
+              <MappingFragment StoreEntitySet="StavkaRacuna">
+                <ScalarProperty Name="IDRacuna" ColumnName="IDRacuna" />
+                <ScalarProperty Name="RedniBroj" ColumnName="RedniBroj" />
+                <ScalarProperty Name="ImeFilma" ColumnName="ImeFilma" />
+                <ScalarProperty Name="BrKarata" ColumnName="BrKarata" />
+                <ScalarProperty Name="MestaSed" ColumnName="MestaSed" />
+                <ScalarProperty Name="Vreme" ColumnName="Vreme" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="CenaKarte" ColumnName="CenaKarte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
